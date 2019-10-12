@@ -41,9 +41,6 @@ charts2 = db.collection('charts2')
 
 
 
-@app.route('/',methods=['GET'])
-def index():
-    return render_template('r.html')
 
 @app.route('/rg',methods=['POST'])
 def genPdf():
