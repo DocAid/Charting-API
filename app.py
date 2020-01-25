@@ -1,26 +1,14 @@
-
-from flask import Flask, redirect, url_for, request, jsonify,render_template
-from firebase_admin import credentials, firestore, initialize_app
-import pickle
-import socket
-import json
-import requests
 import matplotlib.pyplot as plt
 import matplotlib
-import pyrebase
 from skimage import io
 from matplotlib.patches import Arrow, Circle
 import pdfkit
-import sklearn
 from flask import Flask, redirect, url_for, request, jsonify,render_template
 import os, io
-import json
 from PIL import Image
 import PIL.Image
 import requests
 from google.cloud import vision
-from google.cloud.vision import types
-import base64
 import time
 import pyrebase
 from reportlab.lib.enums import TA_JUSTIFY
@@ -39,7 +27,6 @@ db = firestore.client()
 
 reportsHandwritten = db.collection('HandWrittenReports')
 reportsHand = db.collection('reportsHand')
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'ServiceAccountToken.json'
 client = vision.ImageAnnotatorClient()
 reportsHand = db.collection('reportsHand')
 
@@ -69,7 +56,7 @@ charts2 = db.collection('charts2')
 docCharts = db.collection('docCharts')
 
 
-@app.route('/',methods=['GET','POST'])
+@app.route('/', methods=['GET','POST'])
 def index():
     print("hi")
     if request.method == 'POST':
@@ -94,7 +81,7 @@ def index():
                         rightMargin=72,leftMargin=72,
                         topMargin=72,bottomMargin=18)
         Story=[]
-        logo = "https://image.freepik.com/free-vector/doctor-character-background_1270-84.jpg"
+        logo = "./doc.jpg"
         magName = "Pythonista"
         issueNum = 12
         subPrice = "99.00"
@@ -228,7 +215,7 @@ def chart1():
     r = request.json
     pid = r['pid']
     print(pid)
-    res = requests.get('http://73f362ba.ngrok.io/keywords',json={'pid':pid})
+    res = requests.get('http://419e155f.ngrok.io/keywords',json={'pid':pid})
     data = res.json()
     totalPositiveSymps = []
     i = 0
@@ -280,7 +267,7 @@ def chart1():
 def charts2():
     r = request.json
     pid = r['pid']
-    res = requests.get('http://73f362ba.ngrok.io/diagonized_medicines',json={'pid':'POC008'})
+    res = requests.get('http://419e155f.ngrok.io/diagonized_medicines',json={'pid':'POC008'})
     data = res.json()
     doxyl = 0
     vist = 0
@@ -333,7 +320,7 @@ def charts3():
     r = request.json
     pid = r['pid']
     print(pid)
-    res = requests.get('http://73f362ba.ngrok.io/patient_details',json={'pid':pid})
+    res = requests.get('http://419e155f.ngrok.io/patient_details',json={'pid':pid})
     data = res.json()
     print(data)
     weight = data['weight']
@@ -456,4 +443,4 @@ def docChart4():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port=8888, debug=True)
