@@ -182,7 +182,9 @@ def genPdf():
         storage.child('reportsPdf/{}'.format(report)).put('report1.pdf')
         pdf_url = storage.child('reportsPdf/{}'.format(report)).get_url(None)
         data = {
-            'pdf_url':pdf_url
+            'pdf_url':pdf_url,
+            'patient_id':pid,
+            'status': True
         }
         res = reports.document(pid).set(data)
         return pdf_url
