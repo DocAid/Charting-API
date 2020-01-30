@@ -4,7 +4,7 @@ from skimage import io
 from matplotlib.patches import Arrow, Circle
 import pdfkit
 from flask import Flask, redirect, url_for, request, jsonify,render_template
-import os, io
+import os
 from PIL import Image
 import PIL.Image
 import requests
@@ -29,6 +29,8 @@ reportsHandwritten = db.collection('HandWrittenReports')
 reportsHand = db.collection('reportsHand')
 client = vision.ImageAnnotatorClient()
 reportsHand = db.collection('reportsHand')
+
+serverAddr = 'http://69b08d09.ngrok.io'
 
 
 config = {
@@ -217,7 +219,7 @@ def chart1():
     r = request.json
     pid = r['pid']
     print(pid)
-    res = requests.get('http://419e155f.ngrok.io/keywords',json={'pid':pid})
+    res = requests.get(serverAddr + '/keywords',json={'pid':'POC008'})
     data = res.json()
     totalPositiveSymps = []
     i = 0
@@ -269,7 +271,7 @@ def chart1():
 def charts2():
     r = request.json
     pid = r['pid']
-    res = requests.get('http://419e155f.ngrok.io/diagonized_medicines',json={'pid':'POC008'})
+    res = requests.get(serverAddr + '/diagonized_medicines',json={'pid':'POC008'})
     data = res.json()
     doxyl = 0
     vist = 0
@@ -322,7 +324,7 @@ def charts3():
     r = request.json
     pid = r['pid']
     print(pid)
-    res = requests.get('http://419e155f.ngrok.io/patient_details',json={'pid':pid})
+    res = requests.get(serverAddr + '/patient_details',json={'pid':pid})
     data = res.json()
     print(data)
     weight = data['weight']
