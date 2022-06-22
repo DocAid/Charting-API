@@ -31,7 +31,7 @@ MarkupSafe==1.1.1
 matplotlib==3.1.2
 msgpack==0.6.2
 networkx==2.4
-numpy==1.18.1
+numpy==1.22.0
 oauth2client==3.0.0
 pandas==0.25.3
 pdfkit==0.6.1
